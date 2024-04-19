@@ -5,12 +5,19 @@
   import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
   
   const modules = [ Navigation, Pagination, Scrollbar, A11y ]
-  const onSwiper = (swiper: Object) => {
-        console.log(swiper);
+  const onSwiper = (swiper: any) => {
+   console.log(swiper.el.querySelector('video').play())
+    swiper.el.querySelector('video').play()
       };
-  const onSlideChange = () => {
-    console.log('slide change');
+  const onSlideChange = (e: any) => {
+
+    const currentSlide: any = e.slides[e.activeIndex]
+    currentSlide.querySelector('video').play()
   };
+  const onSlideClick =  (e: any) => {
+    console.log(e,'clik')
+  }
+
 </script>
 
 <template>
@@ -21,30 +28,34 @@
       :slides-per-view="1"
       :space-between="10"
       :modules="modules"
-      navigation
-      :pagination="{ clickable: true }"
-      :scrollbar="{ draggable: true }"
+      :direction="'vertical'"
       @swiper="onSwiper"
       @slideChange="onSlideChange"
+      @click="onSlideClick"
     >
-      <swiper-slide>Slide 1</swiper-slide>
-      <swiper-slide>Slide 2</swiper-slide>
-      <swiper-slide>Slide 3</swiper-slide>
+      <swiper-slide   >
+        <video 
+        >
+        <source src="/video/1.mp4" type='video/mp4' />
+      </video>
+      </swiper-slide>
+      <swiper-slide >
+        <video 
+
+        >
+        <source src="/video/2.mp4" type='video/mp4' />
+      </video>
+      </swiper-slide>
+
+      <swiper-slide >
+        <video 
+        >
+        <source src="/video/3.mp4" type='video/mp4' />
+      </video>
+      </swiper-slide>
       
     </swiper>
   </div>
-  <!-- If we need pagination -->
-  <div class="swiper-pagination"></div>
-
-  <!-- If we need navigation buttons -->
-  <div class="swiper-button-prev"></div>
-  <div class="swiper-button-next"></div>
-
-  <!-- If we need scrollbar -->
-  <div class="swiper-scrollbar"></div>
 </div>
 </template>
 
-<style scoped>
-
-</style>
